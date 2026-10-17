@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
 
-    <sty>
+    
+    <style>
         th, td {
             border: 1px solid;
             padding: 1px 5px;
@@ -19,7 +20,8 @@
     </div>
     <div>
         <div style="margin: 10px 0px">
-            <a href="{{ url('/producto/create') }}">Nuevo</a>
+           
+            <a href="{{ url('/productos/create') }}">Nuevo</a>
         </div>
         <table style="width: 50%; margin: 0px auto; border: 1px solid;">
             <tr>
@@ -31,18 +33,20 @@
                 <th><b>Stock</b></th>
                 <th><b>Acción</b></th>
             </tr>
-            @foreach ($baraja as $carta)
+          
+            @foreach ($baraja as $producto)
             <tr>
-                <td>{{ $carta->producto_id }}</td>
-                <td>{{ $carta->nombre }}</td>
-                <td>{{ $carta->marca }}</td>
-                <td>{{ $carta->precio }}</td>
-                <td>{{ $carta->fvencimiento }}</td>
-                <td>{{ $carta->stock }}</td>
+                <td>{{ $producto->producto_id }}</td>
+                <td>{{ $producto->nombre }}</td>
+                <td>{{ $producto->marca }}</td>
+                <td>{{ $producto->precio }}</td>
+                <td>{{ $producto->fvencimiento }}</td>
+                <td>{{ $producto->stock }}</td>
                 <td>
-                    <a href="{{ route('productos.edit', $carta) }}">Editar</a>
+                   
+                    <a href="{{ route('productos.edit', $producto) }}">Editar</a>  
+                    <a href="{{ route('productos.delete', $producto) }}">Eliminar</a> |
                 </td>
-                 
             </tr>
             @endforeach
         </table>

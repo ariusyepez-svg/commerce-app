@@ -9,7 +9,7 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $table='productos';
-    protected $primaryKey='producto_id';
-    public $timestamps=false;
+    protected $table = "productos"; // En referencia a la tabla productos
+    protected $primaryKey = "producto_id"; // En referencia a la clave primaria personalizada
+    public $timestamps = false; // Indica que no busque created_at y updated_at
 }
