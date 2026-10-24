@@ -29,22 +29,22 @@ class CreateProductoRequest extends FormRequest
     {
         return [
             'nombre' => 'NOMBRE',
-            'marca' => 'MARCA',
-            'precio' => 'PRECIO',
-            'fvencimiento' => 'FECHA DE VENCIMIENTO',
+            'marca' => 'BRAND',
+            'precio' => 'PRICE',
+            'fvencimiento' => 'DATE OF EXPIRATION',
             'stock' => 'STOCK',
         ];
     }
 
-    // 3. Personalizar mensajes específicos (Pág. 9)
+       // 3. Personalizar mensajes específicos (Pág. 9 de la separata)
     public function messages(): array
     {
         return [
-            'nombre.required' => 'Error ingresar NOMBRE.',
-            'marca.required' => 'Error ingresar MARCA.',
-            'precio.required' => 'Error ingresar PRECIO.',
-            'fvencimiento.required' => 'Error ingresar FECHA DE VENCIMIENTO.',
-            'stock.required' => 'Error ingresar STOCK.',
+            'nombre.required' => 'Error, debe ingresar NAME.',
+            'marca.required' => 'Error, debe ingresar BRAND.',
+            'precio.required' => 'Error, debe ingresar PRICE.',
+            'fvencimiento.required' => 'Error, debe ingresar DATE OF EXPIRATION.',
+            'stock.required' => 'Error, debe ingresar STOCK.',
         ];
     }
 }
