@@ -22,4 +22,5 @@ Route::put('/productos/{producto}', [ProductoController::class, 'update_PUT'])->
 Route::get('/productos/{producto}/delete', [ProductoController::class, 'delete_GET'])->name('productos.delete');
 Route::delete('/productos/{producto}', [ProductoController::class, 'destroy_DELETE'])->name('productos.destroy');
 
-
+//Detalle
+Route::get('/productos/{producto}', [ProductoController::class, 'show_GET'])->name('productos.show');

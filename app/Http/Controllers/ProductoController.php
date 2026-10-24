@@ -7,55 +7,54 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+    // 1. Listar productos calculando las sumas totales en tiempo real
     public function index_GET()
     {
         $productosDb = Producto::all();
-        return view("productos.index", compact('productosDb')); // Formato de la guía
+
+        // Calculamos los totales dinámicamente desde la colección
+        $totalPrecio = $productosDb->sum('precio');
+        $totalStock = $productosDb->sum('stock');
+
+        return view("productos.index", compact('productosDb', 'totalPrecio', 'totalStock'));
     }
 
-    public function create_GET() {
-        return view("productos.create");
+    // 2. Mostrar formulario de creación
+    public function create_GET() 
+    {
+        return view('productos.create');
     }
 
+    // 3. Registro por asignación masiva (Formato del profesor)
     public function store_POST(Request $request)
     {
-        $producto = new Producto();
-        $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->precio = $request->precio;
-        $producto->fvencimiento = $request->fvencimiento;
-        $producto->stock = $request->stock;
-        $producto->save();
-
+        Producto::create($request->all());
         return redirect('/productos');
     }
 
-    // Recibe el objeto directamente según tu guía optimizada
+    // 4. Mostrar formulario de edición
     public function edit_GET(Producto $producto)
     {
-        return view('productos.edit', compact('producto')); // Retorna la vista con los datos
+        return view('productos.edit', compact('producto'));
     }
 
-    // Procesa los cambios de la edición
+    // 5. Actualización por asignación masiva (Formato del profesor)
     public function update_PUT(Producto $producto, Request $request)
     {
-        $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->precio = $request->precio;
-        $producto->fvencimiento = $request->fvencimiento;
-        $producto->stock = $request->stock;
-        $producto->save();
+        $producto->update($request->all());
+        return redirect('/productos');
+    }
 
-        return redirect('/productos');        
-        }
-        public function delete_GET(Producto $producto)
-        {
-            return view('productos.delete', compact('producto'));
-        }
-        public function destroy_DELETE(Producto $producto)
-        {
-            $producto->delete();
-            return redirect('/productos');
-        }
+    // 6. Eliminar producto de la base de datos
+    public function destroy_DELETE(Producto $producto)
+    {
+        $producto->delete();
+        return redirect('/productos');
+    }
+
+    // 7. Mostrar informe detallado del producto
+    public function show_GET(Producto $producto)
+    {
+        return view('productos.show', compact('producto'));
+    }
 }
-
