@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+// Importamos obligatoriamente el Form Request que creamos en el Paso 1
+use App\Http\Requests\CreateProductoRequest;
 
 class ProductoController extends Controller
 {
-    // 1. Listar productos calculando las sumas totales en tiempo real
+    // 1. Listar productos con cálculo de totales para la tabla
     public function index_GET()
     {
         $productosDb = Producto::all();
 
-        // Calculamos los totales dinámicamente desde la colección
         $totalPrecio = $productosDb->sum('precio');
         $totalStock = $productosDb->sum('stock');
 
@@ -25,8 +26,8 @@ class ProductoController extends Controller
         return view('productos.create');
     }
 
-    // 3. Registro por asignación masiva (Formato del profesor)
-    public function store_POST(Request $request)
+    // 3. Registro por asignación masiva usando el Form Request (Pág. 8)
+    public function store_POST(CreateProductoRequest $request)
     {
         Producto::create($request->all());
         return redirect('/productos');
@@ -38,8 +39,8 @@ class ProductoController extends Controller
         return view('productos.edit', compact('producto'));
     }
 
-    // 5. Actualización por asignación masiva (Formato del profesor)
-    public function update_PUT(Producto $producto, Request $request)
+    // 5. Actualización usando el mismo Form Request validado (Pág. 5)
+    public function update_PUT(Producto $producto, CreateProductoRequest $request)
     {
         $producto->update($request->all());
         return redirect('/productos');

@@ -2,54 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>index</title>
-
-    
-    <style>
-        th, td {
-            border: 1px solid;
-            padding: 1px 5px;
-        }        
-    </style>
+    <title>edit</title>
 </head>
 <body>
-    <div style="text-align: center; margin: 15px 0px; font-size: 22px;">
-        <b>¡Productos - Listar!</b>
-    </div>
-    <div>
-        <div style="margin: 10px 0px">
-           
-            <a href="{{ url('/productos/create') }}">Nuevo</a>
-        </div>
-        <table style="width: 50%; margin: 0px auto; border: 1px solid;">
-            <tr>
-                <th><b>ID</b></th>
-                <th><b>Nombre</b></th>
-                <th><b>Marca</b></th>
-                <th><b>Precio</b></th>
-                <th><b>F.Vencimiento</b></th>
-                <th><b>Stock</b></th>
-                <th><b>Acción</b></th>
-            </tr>
-          
-            @foreach ($baraja as $producto)
-            <tr>
-                <td>{{ $producto->producto_id }}</td>
-                <td>{{ $producto->nombre }}</td>
-                <td>{{ $producto->marca }}</td>
-                <td>{{ $producto->precio }}</td>
-                <td>{{ $producto->fvencimiento }}</td>
-                <td>{{ $producto->stock }}</td>
-                <td>
-                   
-                    <a href="{{ route('productos.edit', $producto) }}">Editar</a>  
-                    <a href="{{ route('productos.delete', $producto) }}">Eliminar</a> |
-                </td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
+    <h3>Producto - Edit!</h3>
+    <form method="post" action="{{ route('productos.update', $producto) }}">
+        @csrf
+        @method('put')
+
+        Producto ID: <input type="text" name="producto_id" value="{{ $producto->producto_id }}" readonly="true"/> <br>
+        
+        Nombre: <input type="text" name="nombre" value="{{ old('nombre', $producto->nombre) }}"/> 
+        @error('nombre') <span style="color: red;">{{ $message }}</span> @enderror <br>
+        
+        Marca: <input type="text" name="marca" value="{{ old('marca', $producto->marca) }}"/> 
+        @error('marca') <span style="color: red;">{{ $message }}</span> @enderror <br>
+        
+        Precio: <input type="number" name="precio" step="any" value="{{ old('precio', $producto->precio) }}"/> 
+        @error('precio') <span style="color: red;">{{ $message }}</span> @enderror <br>
+        
+        Fecha de vencimiento: <input type="date" name="fvencimiento" value="{{ old('fvencimiento', $producto->fvencimiento) }}"/> 
+        @error('fvencimiento') <span style="color: red;">{{ $message }}</span> @enderror <br>
+        
+        Stock: <input type="number" name="stock" value="{{ old('stock', $producto->stock) }}"/> 
+        @error('stock') <span style="color: red;">{{ $message }}</span> @enderror <br><br>
+
+        <button type="submit">Save</button>
+        <button type="button" onclick="location.href='{{ url('/productos') }}'">Cancel</button>
+    </form>
 </body>
 </html>
